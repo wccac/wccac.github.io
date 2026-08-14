@@ -1,0 +1,14 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+
+# Local design QA and internal working files
+qa/
+qa-*.png
+design-qa.md
+AGENTS.md
+
+# Local-only alternate lockfile and OS metadata
+package-lock.json
+.DS_Store

@@ -1,0 +1,945 @@
+/* 檀晷 · 木纹档案移动端。模板运行时样式保留在 styles.css。 */
+
+:root {
+  --tg-ink: #151713;
+  --tg-paper: #e7e0d4;
+  --tg-ember: #a44a35;
+  --tg-celadon: #55706e;
+  --tg-umber: #4a3428;
+  --tg-rail: 52px;
+  --tg-border: rgba(21, 23, 19, 0.28);
+  --tg-serif: "Songti SC", "STSong", "Noto Serif CJK SC", "SimSun", serif;
+  --tg-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --tg-mono: "SFMono-Regular", "Menlo", "Courier New", monospace;
+}
+
+.device-screen:has(.tangui-app) .status-bar {
+  background-color: var(--tg-paper);
+  background-image: url("/assets/tangui/paper-texture.png");
+  background-size: 240px 240px;
+  color: var(--tg-ink);
+}
+
+.tangui-app {
+  background-color: var(--tg-paper);
+  background-image: url("/assets/tangui/paper-texture.png");
+  background-size: 240px 240px;
+  color: var(--tg-ink);
+}
+
+.archive-page {
+  position: relative;
+  min-height: 1580px;
+  padding: 0 0 calc(92px + var(--mobile-safe-area-height));
+}
+
+.archive-fixed-chrome {
+  position: absolute;
+  z-index: 12;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.archive-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--tg-rail);
+  overflow: hidden;
+  background: #2c2119 url("/assets/tangui/wood-spine-clean.png") center top / cover repeat-y;
+  box-shadow: inset -1px 0 rgba(0, 0, 0, 0.58), 1px 0 rgba(255, 255, 255, 0.14);
+  color: rgba(240, 232, 217, 0.92);
+  pointer-events: none;
+}
+
+.spine-signature {
+  position: absolute;
+  top: 82px;
+  left: 30px;
+  display: block;
+  width: max-content;
+  color: rgba(240, 232, 217, 0.92);
+  font-family: "Snell Roundhand", "Kaiti SC", "STKaiti", "KaiTi", cursive;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.36);
+  transform: rotate(90deg);
+  transform-origin: left center;
+  white-space: nowrap;
+}
+
+.archive-canvas {
+  margin-left: var(--tg-rail);
+  min-width: 0;
+  padding-top: 104px;
+}
+
+.intro-copy,
+.view-specimen,
+.tray-entry {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.brand-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.fixed-brand-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: var(--tg-rail);
+  min-height: 124px;
+  margin: 0;
+  padding: 70px 30px 20px;
+  background-color: var(--tg-paper);
+  background-image: url("/assets/tangui/paper-texture.png");
+  background-size: 240px 240px;
+}
+
+.brand-lockup {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.brand-name {
+  font-family: var(--tg-serif);
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.brand-lockup img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.archive-index {
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+  padding-top: 2px;
+  color: rgba(21, 23, 19, 0.62);
+  font: 8px/1.2 var(--tg-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.intro-copy {
+  margin-top: 43px;
+}
+
+.intro-copy h1 {
+  margin: 0;
+  font-family: var(--tg-serif);
+  font-size: 31px;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  line-height: 1.36;
+}
+
+.intro-copy p {
+  margin: 17px 0 0;
+  color: rgba(21, 23, 19, 0.82);
+  font-family: var(--tg-serif);
+  font-size: 11px;
+  letter-spacing: 0.075em;
+  line-height: 1.7;
+  max-width: 100%;
+  white-space: normal;
+}
+
+.product-stage {
+  position: relative;
+  margin-top: 28px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.product-stage img {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+
+.tangui-product-carousel {
+  background: transparent;
+}
+
+.product-carousel-track {
+  gap: 12px;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.product-slide {
+  flex: 0 0 293px;
+  min-width: 0;
+  opacity: 1;
+}
+
+.mobile-app-viewport[data-platform="android"] .product-slide {
+  flex-basis: 327px;
+}
+
+.mobile-app-viewport[data-platform="android"] .product-slide-button img {
+  height: 300px;
+}
+
+.product-slide-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--tg-paper);
+  text-align: left;
+}
+
+.product-slide-button img {
+  display: block;
+  width: 100%;
+  height: 270px;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.carousel-swipe-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 2;
+  color: rgba(21, 23, 19, 0.58);
+  font: 6px/1 var(--tg-mono);
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+
+.specimen-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 96px;
+  padding: 7px 18px 5px;
+}
+
+.specimen-option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 7px 5px 13px;
+  border: 0;
+  border-right: 1px solid rgba(21, 23, 19, 0.42);
+  background: transparent;
+  color: var(--tg-ink);
+}
+
+.specimen-option:last-child {
+  border-right: 0;
+}
+
+.specimen-option:focus-visible,
+.view-specimen:focus-visible,
+.tray-entry:focus-visible,
+.archive-nav button:focus-visible,
+.sheet-primary:focus-visible,
+.sheet-secondary:focus-visible {
+  outline: 1px solid var(--tg-celadon);
+  outline-offset: 3px;
+}
+
+.selection-rule {
+  position: absolute;
+  top: 0;
+  width: 29px;
+  height: 1px;
+  background: transparent;
+}
+
+.specimen-option[data-active="true"] .selection-rule {
+  background: var(--tg-celadon);
+}
+
+.specimen-option strong {
+  font-family: var(--tg-serif);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.specimen-option small {
+  font-family: var(--tg-serif);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.specimen-option i {
+  position: absolute;
+  bottom: 1px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(21, 23, 19, 0.18);
+  border-radius: 50%;
+  background: var(--tg-ember);
+  opacity: 0;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.specimen-option[data-active="true"] i {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.view-specimen {
+  display: grid;
+  grid-template-columns: auto 1fr 18px;
+  gap: 11px;
+  align-items: center;
+  width: calc(100% - 60px);
+  min-height: 83px;
+  padding: 12px 0 13px;
+  border: 0;
+  background: transparent;
+  color: var(--tg-celadon);
+  text-align: left;
+}
+
+.view-specimen > span:first-child {
+  display: grid;
+  gap: 8px;
+}
+
+.view-specimen strong {
+  font-family: var(--tg-serif);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+}
+
+.view-specimen small {
+  color: rgba(21, 23, 19, 0.74);
+  font: 8px/1 var(--tg-mono);
+  letter-spacing: 0.18em;
+}
+
+.cta-line {
+  height: 1px;
+  background: var(--tg-celadon);
+}
+
+.view-specimen svg,
+.tray-entry svg {
+  width: 15px;
+  height: 15px;
+}
+
+.tray-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) 1px minmax(92px, 0.75fr) 18px;
+  gap: 14px;
+  align-items: center;
+  width: calc(100% - 60px);
+  min-height: 102px;
+  padding: 17px 0 20px;
+  border: 0;
+  border-top: 1px solid rgba(21, 23, 19, 0.16);
+  background: transparent;
+  color: var(--tg-ink);
+  text-align: left;
+}
+
+.tray-entry img {
+  display: block;
+  width: 100%;
+  max-height: 59px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.tray-divider {
+  width: 1px;
+  height: 42px;
+  background: rgba(21, 23, 19, 0.48);
+}
+
+.tray-copy {
+  display: grid;
+  gap: 7px;
+}
+
+.tray-copy strong {
+  font-family: var(--tg-serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.tray-copy small {
+  font: 8px/1 var(--tg-mono);
+  letter-spacing: 0.14em;
+}
+
+.tray-entry svg {
+  color: var(--tg-celadon);
+}
+
+.archive-nav {
+  position: absolute;
+  z-index: 14;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: var(--tg-rail) 1fr;
+  min-height: 98px;
+  border-top: 1px solid rgba(21, 23, 19, 0.22);
+  background-color: var(--tg-paper);
+  background-image: url("/assets/tangui/paper-texture.png");
+  background-size: 240px 240px;
+}
+
+.nav-spine-fill {
+  background: #2c2119 url("/assets/tangui/wood-spine.png") center bottom / cover repeat-y;
+  box-shadow: inset -1px 0 rgba(0, 0, 0, 0.58);
+}
+
+.nav-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  padding: 13px 20px 34px;
+}
+
+.mobile-app-viewport[data-platform="android"] .archive-nav {
+  min-height: 64px;
+}
+
+.mobile-app-viewport[data-platform="android"] .nav-items {
+  padding-bottom: 0;
+}
+
+.archive-nav button {
+  position: relative;
+  min-height: 38px;
+  padding: 0 12px 8px;
+  border: 0;
+  border-right: 1px solid rgba(21, 23, 19, 0.46);
+  background: transparent;
+  color: var(--tg-ink);
+  font-family: var(--tg-serif);
+  font-size: 14px;
+  letter-spacing: 0.09em;
+}
+
+.archive-nav button:last-child {
+  border-right: 0;
+}
+
+.archive-nav button::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 17px;
+  height: 2px;
+  background: transparent;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.archive-nav button[data-active="true"] {
+  color: var(--tg-celadon);
+}
+
+.archive-nav button[data-active="true"]::after {
+  background: var(--tg-celadon);
+}
+
+.device-screen:has(.tangui-app) .sheet-overlay {
+  background: rgba(21, 23, 19, 0.48);
+}
+
+.device-screen:has(.tangui-app) .bottom-sheet {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 16px 16px 0 0;
+  background-color: var(--tg-paper);
+  background-image: url("/assets/tangui/paper-texture.png");
+  background-size: 240px 240px;
+  color: var(--tg-ink);
+  box-shadow: 0 -12px 36px rgba(20, 16, 12, 0.28);
+}
+
+.device-screen:has(.tangui-app) .sheet-handle {
+  width: 36px;
+  height: 2px;
+  border-radius: 0;
+  background: var(--tg-celadon);
+}
+
+.device-screen:has(.tangui-app) .sheet-header {
+  width: 100%;
+  min-width: 0;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.device-screen:has(.tangui-app) .sheet-title {
+  font-family: var(--tg-serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+}
+
+.device-screen:has(.tangui-app) .sheet-description {
+  color: rgba(21, 23, 19, 0.62);
+  font: 9px/1.4 var(--tg-mono);
+  letter-spacing: 0.14em;
+}
+
+.device-screen:has(.tangui-app) .sheet-content {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 30px 66px;
+}
+
+.device-screen:has(.mobile-app-viewport[data-platform="android"]):has(.tangui-app) .sheet-content {
+  padding-bottom: 32px;
+}
+
+.sheet-product p,
+.sheet-tray p,
+.sheet-archive p,
+.sheet-timer p {
+  margin: 13px 0 18px;
+  color: rgba(21, 23, 19, 0.74);
+  font-family: var(--tg-serif);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
+}
+
+.sheet-specimen-line {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.sheet-specimen-line span {
+  width: 36px;
+  height: 4px;
+  border: 1px solid rgba(21, 23, 19, 0.18);
+}
+
+.sheet-specimen-line small,
+.timer-kicker {
+  font: 9px/1 var(--tg-mono);
+  letter-spacing: 0.14em;
+}
+
+.sheet-product dl {
+  margin: 0 0 20px;
+  border-top: 1px solid var(--tg-border);
+}
+
+.sheet-product dl > div {
+  display: grid;
+  grid-template-columns: minmax(78px, auto) minmax(0, 1fr);
+  gap: 18px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--tg-border);
+  font-family: var(--tg-serif);
+  font-size: 12px;
+}
+
+.sheet-product dt {
+  color: rgba(21, 23, 19, 0.58);
+}
+
+.sheet-product dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.sheet-primary,
+.sheet-secondary {
+  min-height: 43px;
+  padding: 0 18px;
+  border: 1px solid var(--tg-ink);
+  border-radius: 0;
+  font-family: var(--tg-serif);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.sheet-primary {
+  background: var(--tg-ink);
+  color: var(--tg-paper);
+}
+
+.sheet-secondary {
+  background: transparent;
+  color: var(--tg-ink);
+}
+
+.sheet-tray img {
+  display: block;
+  width: 100%;
+  max-height: 220px;
+  margin: 0;
+  object-fit: cover;
+}
+
+.sheet-timer {
+  text-align: center;
+}
+
+.sheet-timer > strong {
+  display: block;
+  margin: 17px 0 2px;
+  font-family: var(--tg-serif);
+  font-size: 52px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.sheet-timer p {
+  margin: 0 0 20px;
+}
+
+.timer-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.archive-number {
+  display: block;
+  color: var(--tg-celadon);
+  font: 44px/1 var(--tg-serif);
+}
+
+.sheet-archive > div {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--tg-border);
+  font-family: var(--tg-serif);
+  font-size: 13px;
+}
+
+.sheet-archive > div span {
+  color: var(--tg-ember);
+  font-family: var(--tg-mono);
+  font-size: 10px;
+}
+
+.brand-story,
+.time-guide {
+  margin: 26px 30px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(21, 23, 19, 0.24);
+}
+
+.section-kicker {
+  color: var(--tg-celadon);
+  font: 8px/1 var(--tg-mono);
+  letter-spacing: 0.16em;
+}
+
+.brand-story h2,
+.time-guide h2 {
+  margin: 11px 0 14px;
+  font-family: var(--tg-serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  line-height: 1.35;
+}
+
+.brand-story > p {
+  margin: 0;
+  color: rgba(21, 23, 19, 0.76);
+  font-family: var(--tg-serif);
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  line-height: 1.85;
+}
+
+.brand-story dl {
+  margin: 20px 0 0;
+  border-top: 1px solid rgba(21, 23, 19, 0.24);
+}
+
+.brand-story dl > div {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(21, 23, 19, 0.2);
+  font-family: var(--tg-serif);
+  font-size: 12px;
+}
+
+.brand-story dt {
+  color: var(--tg-ember);
+}
+
+.brand-story dd {
+  margin: 0;
+  color: rgba(21, 23, 19, 0.72);
+}
+
+.time-guide {
+  margin-top: 32px;
+}
+
+.time-guide > button {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 18px;
+  gap: 15px;
+  align-items: center;
+  width: 100%;
+  min-height: 68px;
+  padding: 10px 0;
+  border: 0;
+  border-top: 1px solid rgba(21, 23, 19, 0.24);
+  background: transparent;
+  color: var(--tg-ink);
+  text-align: left;
+}
+
+.time-guide > button:last-child {
+  border-bottom: 1px solid rgba(21, 23, 19, 0.24);
+}
+
+.time-guide > button > span:first-child {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+  color: var(--tg-celadon);
+}
+
+.time-guide > button strong {
+  font-family: var(--tg-serif);
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.time-guide > button > span:nth-child(2) {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.time-guide > button b {
+  font-family: var(--tg-serif);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.time-guide > button small {
+  color: rgba(21, 23, 19, 0.6);
+  font: 8px/1.35 var(--tg-mono);
+  letter-spacing: 0.08em;
+}
+
+.time-guide > button svg {
+  color: var(--tg-celadon);
+}
+
+.sheet-safe-content {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 2px;
+}
+
+.sheet-safe-content,
+.sheet-safe-content * {
+  box-sizing: border-box;
+}
+
+.sheet-lead {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.sheet-context-note,
+.archive-meaning {
+  margin: 22px 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--tg-border);
+}
+
+.sheet-context-note > span,
+.archive-meaning > span {
+  color: var(--tg-celadon);
+  font: 8px/1 var(--tg-mono);
+  letter-spacing: 0.16em;
+}
+
+.sheet-context-note h3,
+.archive-meaning h3 {
+  margin: 10px 0 8px;
+  font-family: var(--tg-serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.45;
+}
+
+.sheet-context-note p,
+.archive-meaning p {
+  margin: 0;
+  color: rgba(21, 23, 19, 0.7);
+  font-family: var(--tg-serif);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.tray-specs {
+  margin: 4px 0 0;
+  border-top: 1px solid var(--tg-border);
+}
+
+.tray-specs > div {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 18px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--tg-border);
+  font-family: var(--tg-serif);
+  font-size: 12px;
+}
+
+.tray-specs dt {
+  color: rgba(21, 23, 19, 0.56);
+}
+
+.tray-specs dd {
+  margin: 0;
+  text-align: right;
+}
+
+.timer-ritual {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 0 19px;
+  border: 1px solid var(--tg-border);
+  background: var(--tg-border);
+}
+
+.timer-ritual span {
+  min-width: 0;
+  padding: 10px 7px;
+  background: var(--tg-paper);
+  color: rgba(21, 23, 19, 0.68);
+  font-family: var(--tg-serif);
+  font-size: 10px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.sheet-archive > div {
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 4px 12px;
+  min-width: 0;
+}
+
+.sheet-archive > div strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.sheet-archive > div small {
+  grid-column: 2;
+  color: rgba(21, 23, 19, 0.58);
+  font: 8px/1.4 var(--tg-mono);
+  letter-spacing: 0.08em;
+}
+
+.sheet-archive > .archive-meaning {
+  display: block;
+  margin-top: 22px;
+  padding-top: 16px;
+}
+
+.sheet-archive > .archive-meaning > span {
+  color: var(--tg-celadon);
+  font-size: 8px;
+}
+
+.product-slide-button:focus-visible,
+.time-guide > button:focus-visible {
+  outline: 1px solid var(--tg-celadon);
+  outline-offset: -3px;
+}
+
+@media (max-width: 380px) {
+  :root {
+    --tg-rail: 48px;
+  }
+
+  .intro-copy,
+  .view-specimen,
+  .tray-entry,
+  .brand-story,
+  .time-guide {
+    margin-right: 24px;
+    margin-left: 24px;
+  }
+
+  .fixed-brand-header {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .view-specimen,
+  .tray-entry {
+    width: calc(100% - 48px);
+  }
+
+  .intro-copy h1 {
+    font-size: 28px;
+  }
+
+  .product-slide-button img {
+    height: 340px;
+  }
+
+  .device-screen:has(.tangui-app) .sheet-header,
+  .device-screen:has(.tangui-app) .sheet-content {
+    padding-right: 27px;
+    padding-left: 27px;
+  }
+}
