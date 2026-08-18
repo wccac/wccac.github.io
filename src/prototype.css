@@ -826,6 +826,73 @@
   color: var(--tg-zheshi);
 }
 
+.refill-series {
+  margin-top: 18px;
+  padding: 24px 0 20px;
+  border-top: 1px solid var(--tg-border);
+  border-bottom: 1px solid var(--tg-border);
+}
+
+.refill-series-heading,
+.object-archive-heading {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.refill-series-heading > span,
+.object-archive-heading > span {
+  color: var(--tg-canglang);
+  font: 8px/1 var(--tg-mono);
+  letter-spacing: 0.16em;
+}
+
+.refill-series-heading h3,
+.object-archive-heading h3 {
+  margin: 10px 0 0;
+  font-family: var(--tg-serif);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.42;
+}
+
+.refill-series-heading p {
+  margin: 11px 0 0;
+  color: color-mix(in srgb, var(--tg-mose) 72%, transparent);
+  font-family: var(--tg-serif);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  line-height: 1.78;
+}
+
+.refill-product-stage {
+  margin-top: 14px;
+}
+
+.refill-product-track {
+  padding-bottom: 2px;
+}
+
+.refill-product-slide {
+  transition: opacity 180ms ease;
+}
+
+.refill-product-slide[data-selected="false"] {
+  opacity: 0.74;
+}
+
+.refill-specimen-selector {
+  margin-top: 4px;
+}
+
+.refill-view-specimen {
+  min-height: 76px;
+}
+
+.object-archive-heading {
+  margin-top: 26px;
+}
+
 .product-archive-status {
   display: grid;
   grid-template-columns: auto minmax(28px, 54px) auto minmax(0, 1fr) auto;
@@ -867,8 +934,8 @@
 
 .archive-step-controls button {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   place-items: center;
   padding: 0;
   border: 0;
@@ -886,11 +953,6 @@
   height: 14px;
 }
 
-.product-archive-carousel {
-  scroll-snap-type: x proximity;
-  overscroll-behavior-inline: contain;
-}
-
 .product-archive-track {
   gap: 13px;
   align-items: stretch;
@@ -899,7 +961,6 @@
 
 .product-archive-card {
   flex: 0 0 288px;
-  scroll-snap-align: center;
   display: flex;
   min-width: 0;
   flex-direction: column;
