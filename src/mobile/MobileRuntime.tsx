@@ -1,12 +1,14 @@
 import { useEffect, type PropsWithChildren } from "react";
-import { MobileDeviceProvider, useMobileDevice } from "./Device";
+import { MobileDeviceProvider, useMobileDevice, type MobileDeviceId } from "./Device";
 import { KeyboardDock, KeyboardProvider, useKeyboard } from "./Keyboard";
 import { PhoneFrame } from "./PhoneFrame";
 import { HomeIndicator, StatusBar } from "./components";
 
-export function MobileRuntime({ children }: PropsWithChildren) {
+export function MobileRuntime({ children, allowedDevices }: PropsWithChildren<{
+  allowedDevices?: readonly MobileDeviceId[];
+}>) {
   return (
-    <MobileDeviceProvider>
+    <MobileDeviceProvider allowedDevices={allowedDevices}>
       <PhoneFrame>
         <KeyboardProvider>
           <KeyboardPreview />

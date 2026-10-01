@@ -3,7 +3,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { BottomSheet, Carousel, MobileScroll } from "./mobile";
 
 type ProductId = "15" | "30" | "45";
-type ProductArchiveCategory = "all" | "time" | "gift" | "travel" | "object" | "archive" | "timer";
+type ProductArchiveCategory = "time" | "gift" | "travel" | "object" | "archive" | "timer";
 type ProductArchiveId =
   | "time-15"
   | "time-30"
@@ -19,7 +19,7 @@ type SheetMode = "product" | "tray" | "timer" | "archive" | "portfolio" | null;
 type ProductArchiveItem = {
   id: ProductArchiveId;
   number: string;
-  category: Exclude<ProductArchiveCategory, "all">;
+  category: ProductArchiveCategory;
   name: string;
   english: string;
   time: string;
@@ -66,7 +66,7 @@ const PRODUCTS: Record<
     ritual: "留一道窗隙，燃一支香。在水沸之前，让注意力缓慢回到眼前。",
     batch: "PILOT 00",
     validation: "目标值 · 待三批实测",
-    image: "/assets/tangui/open-15.png",
+    image: "/assets/tangui/v5/open-15.webp",
   },
   "30": {
     minutes: 30,
@@ -81,7 +81,7 @@ const PRODUCTS: Record<
     ritual: "整理桌面，翻开要读的一页。香气开始稳定时，进入一段完整的静读。",
     batch: "PILOT 00",
     validation: "目标值 · 待三批实测",
-    image: "/assets/tangui/open-30.png",
+    image: "/assets/tangui/v5/open-30.webp",
   },
   "45": {
     minutes: 45,
@@ -96,18 +96,17 @@ const PRODUCTS: Record<
     ritual: "调暗环境光，让燃香成为空间里唯一的时间刻度，完成一席从容的香事。",
     batch: "PILOT 00",
     validation: "目标值 · 待三批实测",
-    image: "/assets/tangui/open-45.png",
+    image: "/assets/tangui/v5/open-45.webp",
   },
 };
 
 const PRODUCT_ORDER: ProductId[] = ["15", "30", "45"];
 const REFILL_PRODUCT_IMAGES: Record<ProductId, string> = {
-  "15": "/assets/tangui/carousel-15-flat-v2.png",
-  "30": "/assets/tangui/carousel-30-flat-v2.png",
-  "45": "/assets/tangui/carousel-45-flat-v2.png",
+  "15": "/assets/tangui/cutouts/refill-15.webp",
+  "30": "/assets/tangui/cutouts/refill-30.webp",
+  "45": "/assets/tangui/cutouts/refill-45.webp",
 };
 const PRODUCT_ARCHIVE_CATEGORIES: Array<{ id: ProductArchiveCategory; label: string; english: string }> = [
-  { id: "all", label: "全部", english: "ALL" },
   { id: "time", label: "时间香", english: "TIME" },
   { id: "gift", label: "礼盒", english: "GIFT" },
   { id: "travel", label: "随行", english: "TRAVEL" },
@@ -185,7 +184,7 @@ const PRODUCT_ARCHIVE: ProductArchiveItem[] = [
     designLogic: "右上角切角对应日晷投影，日影折线成为真实开合线；木纹板向右抽离后露出细长线香和条形矿物香托。",
     scenes: ["正式礼赠", "品牌首购", "书房陈列"],
     boundary: "最终量产必须校核盒体闭合公差、抽拉阻尼、香支实际长度、内托防震与香托耐热材质。",
-    image: "/assets/tangui/archive-04-gift.png",
+    image: "/assets/tangui/cutouts/gift-30.webp",
     linkedTime: "30",
   },
   {
@@ -203,7 +202,7 @@ const PRODUCT_ARCHIVE: ProductArchiveItem[] = [
     designLogic: "纵向比例呼应线香本体，象牙白主体减轻体量感，深色木盖与底座像日晷上下刻度，为便携形态提供稳定视觉重心。",
     scenes: ["差旅酒店", "独立办公室", "短时休息"],
     boundary: "便携容器需验证密封、防折断、防潮与余香残留；外出使用仍须遵守场地明火规定。",
-    image: "/assets/tangui/archive-05-travel.png",
+    image: "/assets/tangui/cutouts/travel-15.webp",
     linkedTime: "15",
   },
   {
@@ -221,7 +220,7 @@ const PRODUCT_ARCHIVE: ProductArchiveItem[] = [
     designLogic: "书脊使用深色纵向木纹，纸面保持象牙白；日影折线像档案封缄，视觉上与 APP 左侧固定木条形成线上线下一致。",
     scenes: ["礼盒随附", "品牌展陈", "会员档案收藏"],
     boundary: "来源、产区、年份、配比与检测结论只能在获得供应链文件和检测报告后填写，不以故事替代证据。",
-    image: "/assets/tangui/archive-06-wood.png",
+    image: "/assets/tangui/cutouts/wood-archive.webp",
   },
   {
     id: "moon-90",
@@ -238,7 +237,7 @@ const PRODUCT_ARCHIVE: ProductArchiveItem[] = [
     designLogic: "深色木纹盒盖压入一圈日晷刻度，圆形香托延续同一中心轴；盒体和器物不是两个造型，而是同一套时间图形的内外对应。",
     scenes: ["客厅阅读", "长时茶叙", "安静工作室"],
     boundary: "90 MIN 为概念目标值；盘香配方、断裂率、燃烧连续性、底部隔热和承灰范围需要独立打样验证。",
-    image: "/assets/tangui/archive-07-moon.png",
+    image: "/assets/tangui/cutouts/moon-90.webp",
   },
   {
     id: "dial-objects",
@@ -255,7 +254,7 @@ const PRODUCT_ARCHIVE: ProductArchiveItem[] = [
     designLogic: "方盒内部以圆形开窗露出器物，形成方与圆、纸与矿物的对照；右侧浅木纹板继续承担开合和触觉识别。",
     scenes: ["日常替换器物", "礼盒升级", "书桌长期陈列"],
     boundary: "材质需验证耐热、阻燃、倾倒稳定、清洁方式和香灰容量；在完成测试前不宣称具体材料性能。",
-    image: "/assets/tangui/archive-08-objects.png",
+    image: "/assets/tangui/cutouts/dial-objects.webp",
   },
   {
     id: "dial-timer",
@@ -272,13 +271,29 @@ const PRODUCT_ARCHIVE: ProductArchiveItem[] = [
     designLogic: "三角轮廓来自日晷指针与投影夹角，圆形表盘继承 Logo；木质外壳避免计时器看起来像通用电子产品。",
     scenes: ["点香同步计时", "阅读与专注", "桌面陈列"],
     boundary: "需要验证真实机芯精度、蜂鸣音量、旋钮寿命、木壳散热与阻燃距离；当前不等同于可量产工程图。",
-    image: "/assets/tangui/archive-09-timer.png",
+    image: "/assets/tangui/cutouts/dial-timer.webp",
   },
 ];
 const REFILL_ARCHIVE_IDS: Record<ProductId, ProductArchiveId> = {
   "15": "time-15",
   "30": "time-30",
   "45": "time-45",
+};
+// One permanent rail, grouped in the same order as its navigation. Nothing is
+// filtered out or remounted when the active category changes during a swipe.
+const BROWSE_PRODUCTS = PRODUCT_ARCHIVE_CATEGORIES.flatMap((category) =>
+  PRODUCT_ARCHIVE.filter((item) => item.category === category.id),
+);
+const BROWSE_CAPTIONS: Record<ProductArchiveId, string> = {
+  "time-15": "一支短香，留给晨起、沏茶与开始之前。",
+  "time-30": "温润木香，陪伴一段完整的静读时光。",
+  "time-45": "更绵长的木质余韵，留给晚间与从容茶席。",
+  "gift-30": "线香与条形香托成套收纳，沿木纹开启一段时间。",
+  "travel-15": "窄长多边筒身，让短时香事有一处随行收纳。",
+  "wood-archive": "以册页收藏木纹、原料与待验证的气味线索。",
+  "moon-90": "从直线延伸到圆周，为长时阅读而设的盘香。",
+  "dial-objects": "让香与香灰各有其位，成为桌面上的日常器物。",
+  "dial-timer": "木质三角底座与机械刻度，把时间留在桌面。",
 };
 const CENTER_LOOP_CYCLE = 3;
 const LOOPED_PRODUCTS = Array.from({ length: 7 }, (_, cycle) =>
@@ -294,37 +309,42 @@ function formatTime(seconds: number) {
   return `${mins}:${secs}`;
 }
 
+function ProductImage({ id, className }: { id: ProductId; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  const product = PRODUCTS[id];
+  return (
+    <img
+      className={className}
+      src={failed ? REFILL_PRODUCT_IMAGES[id] : product.image}
+      alt={`檀晷 ${product.minutes} MIN ${product.name}${failed ? "完整包装" : "完整开盒产品"}`}
+      width="1402"
+      height="1122"
+      draggable={false}
+      decoding="async"
+      onError={() => { if (!failed) setFailed(true); }}
+    />
+  );
+}
+
 export default function Prototype() {
   const [selectedId, setSelectedId] = useState<ProductId>("30");
+  const selectedIdRef = useRef<ProductId>(selectedId);
+  selectedIdRef.current = selectedId;
   const [activeNav, setActiveNav] = useState<(typeof NAV_ITEMS)[number]>("香品");
   const [sheetMode, setSheetMode] = useState<SheetMode>(null);
   const [secondsLeft, setSecondsLeft] = useState(PRODUCTS["30"].minutes * 60);
   const [timerRunning, setTimerRunning] = useState(false);
   const [completedSessions, setCompletedSessions] = useState<Record<ProductId, number>>(EMPTY_SESSION_COUNTS);
-  const [archiveCategory, setArchiveCategory] = useState<ProductArchiveCategory>("all");
   const [activeArchiveId, setActiveArchiveId] = useState<ProductArchiveId>("gift-30");
-  const [refillId, setRefillId] = useState<ProductId>("30");
+  const [browsedArchiveId, setBrowsedArchiveId] = useState<ProductArchiveId>("time-15");
   const carouselNodeRef = useRef<HTMLDivElement | null>(null);
-  const refillCarouselNodeRef = useRef<HTMLDivElement | null>(null);
   const archiveCarouselNodeRef = useRef<HTMLDivElement | null>(null);
+  const instantCategoryNavigationRef = useRef(false);
   const selected = PRODUCTS[selectedId];
-  const activeRefill = PRODUCTS[refillId];
-  const showRefillShowcase = archiveCategory === "all" || archiveCategory === "time";
-  const filteredArchiveProducts = useMemo(
-    () =>
-      PRODUCT_ARCHIVE.filter(
-        (item) => item.category !== "time" && (archiveCategory === "all" || item.category === archiveCategory),
-      ),
-    [archiveCategory],
-  );
-  const archiveCategoryItemCount =
-    archiveCategory === "all" ? PRODUCT_ARCHIVE.length : archiveCategory === "time" ? 3 : filteredArchiveProducts.length;
-  const activeArchive =
-    PRODUCT_ARCHIVE.find((item) => item.id === activeArchiveId) ?? filteredArchiveProducts[0] ?? PRODUCT_ARCHIVE[0];
-  const activeArchiveIndex = Math.max(
-    0,
-    filteredArchiveProducts.findIndex((item) => item.id === activeArchive.id),
-  );
+  const browsedArchive = BROWSE_PRODUCTS.find((item) => item.id === browsedArchiveId) ?? BROWSE_PRODUCTS[0];
+  const archiveCategory = browsedArchive.category;
+  const activeArchive = PRODUCT_ARCHIVE.find((item) => item.id === activeArchiveId) ?? PRODUCT_ARCHIVE[0];
+  const browsedArchiveIndex = BROWSE_PRODUCTS.findIndex((item) => item.id === browsedArchive.id);
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -396,6 +416,8 @@ export default function Prototype() {
     carouselNodeRef.current = node;
     let initialized = false;
     let syncFrame = 0;
+    let resizeFrame = 0;
+    let previousWidth = node.clientWidth;
 
     const slides = () => Array.from(node.querySelectorAll<HTMLElement>(".product-slide"));
     const centerOn = (slide: HTMLElement) => {
@@ -448,9 +470,27 @@ export default function Prototype() {
     };
 
     node.addEventListener("scroll", syncSelection, { passive: true });
+    const resizeObserver = new ResizeObserver(() => {
+      const width = node.clientWidth;
+      if (!initialized || width === previousWidth) return;
+      previousWidth = width;
+      const retainedId = selectedIdRef.current;
+      initialized = false;
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(() => {
+        const target = slides().find((slide) => slide.dataset.productId === retainedId
+          && slide.dataset.loopCycle === String(CENTER_LOOP_CYCLE));
+        if (target) centerOn(target);
+        initialized = true;
+        syncSelection();
+      });
+    });
+    resizeObserver.observe(node);
     return () => {
       window.clearTimeout(initializeTimer);
       window.cancelAnimationFrame(syncFrame);
+      window.cancelAnimationFrame(resizeFrame);
+      resizeObserver.disconnect();
       node.removeEventListener("scroll", syncSelection);
       carouselNodeRef.current = null;
     };
@@ -480,60 +520,6 @@ export default function Prototype() {
   }, []);
 
   useEffect(() => {
-    if (!showRefillShowcase) {
-      refillCarouselNodeRef.current = null;
-      return;
-    }
-
-    const node = document.querySelector<HTMLDivElement>(".refill-product-carousel");
-    if (!node) return;
-    refillCarouselNodeRef.current = node;
-    let syncFrame = 0;
-
-    const slides = () => Array.from(node.querySelectorAll<HTMLElement>(".refill-product-slide"));
-    const syncRefillSelection = () => {
-      window.cancelAnimationFrame(syncFrame);
-      syncFrame = window.requestAnimationFrame(() => {
-        const items = slides();
-        if (items.length === 0) return;
-        const center = node.scrollLeft + node.clientWidth / 2;
-        const nearest = items.reduce((best, slide) => {
-          const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
-          const bestCenter = best.offsetLeft + best.offsetWidth / 2;
-          return Math.abs(slideCenter - center) < Math.abs(bestCenter - center) ? slide : best;
-        }, items[0]);
-        const id = nearest.dataset.productId as ProductId | undefined;
-        if (id && PRODUCT_ORDER.includes(id)) setRefillId((current) => (current === id ? current : id));
-      });
-    };
-
-    const initializeFrame = window.requestAnimationFrame(() => {
-      const target = slides().find((slide) => slide.dataset.productId === refillId);
-      if (target) {
-        node.scrollLeft = target.offsetLeft - (node.clientWidth - target.offsetWidth) / 2;
-      }
-      syncRefillSelection();
-    });
-
-    node.addEventListener("scroll", syncRefillSelection, { passive: true });
-    return () => {
-      window.cancelAnimationFrame(initializeFrame);
-      window.cancelAnimationFrame(syncFrame);
-      node.removeEventListener("scroll", syncRefillSelection);
-      refillCarouselNodeRef.current = null;
-    };
-  }, [showRefillShowcase]);
-
-  useEffect(() => {
-    if (filteredArchiveProducts.length === 0) {
-      archiveCarouselNodeRef.current = null;
-      return;
-    }
-
-    setActiveArchiveId((current) =>
-      filteredArchiveProducts.some((item) => item.id === current) ? current : filteredArchiveProducts[0].id,
-    );
-
     const node = document.querySelector<HTMLDivElement>(".product-archive-carousel");
     if (!node) return;
     archiveCarouselNodeRef.current = node;
@@ -550,29 +536,48 @@ export default function Prototype() {
           return Math.abs(cardCenter - center) < Math.abs(bestCenter - center) ? card : best;
         }, cards[0]);
         const id = nearest.dataset.archiveId as ProductArchiveId | undefined;
-        if (id) setActiveArchiveId((current) => (current === id ? current : id));
+        if (id) setBrowsedArchiveId((current) => (current === id ? current : id));
       });
     };
 
-    const resetFrame = window.requestAnimationFrame(() => {
-      node.scrollTo({ left: 0, behavior: "smooth" });
-      syncArchiveSelection();
-    });
+    syncArchiveSelection();
     node.addEventListener("scroll", syncArchiveSelection, { passive: true });
     return () => {
-      window.cancelAnimationFrame(resetFrame);
       window.cancelAnimationFrame(syncFrame);
       node.removeEventListener("scroll", syncArchiveSelection);
       archiveCarouselNodeRef.current = null;
     };
-  }, [filteredArchiveProducts]);
+  }, []);
+
+  useEffect(() => {
+    const rail = document.querySelector<HTMLDivElement>(".archive-category-carousel");
+    const active = rail?.querySelector<HTMLElement>(`[data-category-id="${archiveCategory}"]`);
+    if (!rail || !active) return;
+    // Scroll the navigation rail only: scrollIntoView would also move the page.
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    rail.scrollTo({
+      left: active.offsetLeft - (rail.clientWidth - active.offsetWidth) / 2,
+      behavior: reduced || instantCategoryNavigationRef.current ? "auto" : "smooth",
+    });
+    instantCategoryNavigationRef.current = false;
+    let previousWidth = rail.clientWidth;
+    const observer = new ResizeObserver(() => {
+      if (rail.clientWidth === previousWidth) return;
+      previousWidth = rail.clientWidth;
+      rail.scrollTo({ left: active.offsetLeft - (rail.clientWidth - active.offsetWidth) / 2, behavior: "auto" });
+    });
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, [archiveCategory]);
 
   const scrollProductIntoView = useCallback((id: ProductId) => {
     const node = carouselNodeRef.current;
     if (!node) return;
-    const target = Array.from(node.querySelectorAll<HTMLElement>(".product-slide")).find(
-      (slide) => slide.dataset.productId === id && slide.dataset.loopCycle === String(CENTER_LOOP_CYCLE),
-    );
+    const center = node.scrollLeft + node.clientWidth / 2;
+    const target = Array.from(node.querySelectorAll<HTMLElement>(".product-slide"))
+      .filter((slide) => slide.dataset.productId === id)
+      .sort((a, b) => Math.abs(a.offsetLeft + a.offsetWidth / 2 - center)
+        - Math.abs(b.offsetLeft + b.offsetWidth / 2 - center))[0];
     if (!target) return;
     node.scrollTo({
       left: target.offsetLeft - (node.clientWidth - target.offsetWidth) / 2,
@@ -589,40 +594,33 @@ export default function Prototype() {
     [scrollProductIntoView],
   );
 
-  const chooseRefillProduct = useCallback((id: ProductId) => {
-    setRefillId(id);
-    const node = refillCarouselNodeRef.current;
-    if (!node) return;
-    const target = Array.from(node.querySelectorAll<HTMLElement>(".refill-product-slide")).find(
-      (slide) => slide.dataset.productId === id,
-    );
-    if (!target) return;
-    node.scrollTo({
-      left: target.offsetLeft - (node.clientWidth - target.offsetWidth) / 2,
-      behavior: "smooth",
-    });
-  }, []);
-
-  const openRefillPortfolio = useCallback((id: ProductId) => {
-    setRefillId(id);
-    setActiveArchiveId(REFILL_ARCHIVE_IDS[id]);
-    setSheetMode("portfolio");
-  }, []);
-
-  const stepArchive = (direction: -1 | 1) => {
+  const scrollToArchive = useCallback((id: ProductArchiveId, instant = false) => {
     const node = archiveCarouselNodeRef.current;
     if (!node) return;
-    const cards = Array.from(node.querySelectorAll<HTMLElement>(".product-archive-card"));
-    if (cards.length === 0) return;
-    const currentIndex = Math.max(0, cards.findIndex((card) => card.dataset.archiveId === activeArchive.id));
-    const nextIndex = (currentIndex + direction + cards.length) % cards.length;
-    const next = cards[nextIndex];
-    const id = next.dataset.archiveId as ProductArchiveId | undefined;
-    if (id) setActiveArchiveId(id);
+    const target = node.querySelector<HTMLElement>(`[data-archive-id="${id}"]`);
+    if (!target) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const current = node.querySelector<HTMLElement>(".product-archive-card[data-active='true']");
+    instantCategoryNavigationRef.current = instant && current?.dataset.category !== target.dataset.category;
     node.scrollTo({
-      left: next.offsetLeft - (node.clientWidth - next.offsetWidth) / 2,
-      behavior: "smooth",
+      left: target.offsetLeft - (node.clientWidth - target.offsetWidth) / 2,
+      behavior: instant || reduced ? "auto" : "smooth",
     });
+  }, []);
+
+  const chooseArchiveCategory = (category: ProductArchiveCategory, instant = false) => {
+    const first = BROWSE_PRODUCTS.find((item) => item.category === category);
+    if (first) scrollToArchive(first.id, instant);
+  };
+
+  const stepArchive = (direction: -1 | 1, instant = false) => {
+    const nextIndex = Math.min(BROWSE_PRODUCTS.length - 1, Math.max(0, browsedArchiveIndex + direction));
+    scrollToArchive(BROWSE_PRODUCTS[nextIndex].id, instant);
+  };
+
+  const openPortfolio = (id: ProductArchiveId) => {
+    setActiveArchiveId(id);
+    setSheetMode("portfolio");
   };
 
   const sheetCopy = useMemo(() => {
@@ -652,13 +650,13 @@ export default function Prototype() {
     <>
       <div className="archive-fixed-chrome">
         <aside className="archive-spine" aria-hidden="true">
-          <span className="spine-signature">TÁN GUǏ</span>
+          <img className="spine-signature" src="/assets/tangui/wangc-signature.svg" alt="WangC" />
         </aside>
 
         <header className="brand-header fixed-brand-header">
           <div className="brand-lockup">
-            <span className="brand-name">檀晷</span>
-            <img src="/assets/tangui/logo-symbol.svg" alt="檀晷日晷标志" />
+            <img className="brand-wordmark" src="/assets/tangui/v5/logo-wordmark.svg" alt="檀晷" width="54" height="26" />
+            <img className="brand-symbol" src="/assets/tangui/v5/logo-symbol.svg" alt="檀晷 · 斜影 R3 标志" width="34" height="34" />
           </div>
           <div className="archive-index">
             <span>ARCHIVE 02</span>
@@ -679,6 +677,7 @@ export default function Prototype() {
               <Carousel
                 className="tangui-product-carousel"
                 contentClassName="product-carousel-track"
+                snap="center"
                 ariaLabel="左右滑动查看檀晷 15、30、45 分钟香品"
               >
                 {LOOPED_PRODUCTS.map(({ id, cycle }) => {
@@ -699,7 +698,7 @@ export default function Prototype() {
                           setSheetMode("product");
                         }}
                       >
-                        <img src={item.image} alt={`檀晷 ${item.minutes} MIN ${item.name} 产品包装`} />
+                        <ProductImage id={id} />
                       </button>
                     </article>
                   );
@@ -792,20 +791,22 @@ export default function Prototype() {
 
               <div className="archive-filter-heading">
                 <span>按品类浏览</span>
-                <small>{archiveCategoryItemCount.toString().padStart(2, "0")} ITEMS</small>
+                <small>09 ITEMS · 左右滑动</small>
               </div>
               <Carousel
                 className="archive-category-carousel"
                 contentClassName="archive-category-track"
-                ariaLabel="筛选檀晷产品档案"
+                ariaLabel="产品品类导航，随产品滑动同步切换"
               >
                 {PRODUCT_ARCHIVE_CATEGORIES.map((category) => (
                   <button
                     key={category.id}
                     className="archive-category-option"
+                    data-category-id={category.id}
                     data-active={archiveCategory === category.id ? "true" : "false"}
                     aria-pressed={archiveCategory === category.id}
-                    onClick={() => setArchiveCategory(category.id)}
+                    aria-controls="catalog-products"
+                    onClick={(event) => chooseArchiveCategory(category.id, event.detail === 0)}
                   >
                     <span>{category.label}</span>
                     <small>{category.english}</small>
@@ -813,98 +814,17 @@ export default function Prototype() {
                 ))}
               </Carousel>
 
-              {showRefillShowcase ? (
-                <section className="refill-series" aria-labelledby="refill-series-title">
-                  <div className="refill-series-heading">
-                    <span>REFILL SERIES · 01—03</span>
-                    <h3 id="refill-series-title">时间香补充装</h3>
-                    <p>与正品礼盒保持同一陈列秩序，以完整包装、明确时长和克制入口呈现三种日常补充选择。</p>
-                  </div>
-
-                  <section className="product-stage refill-product-stage" aria-label="檀晷时间香补充装轮播">
-                    <Carousel
-                      className="refill-product-carousel"
-                      contentClassName="product-carousel-track refill-product-track"
-                      ariaLabel="左右滑动查看 15、30、45 分钟时间香补充装"
-                    >
-                      {PRODUCT_ORDER.map((id) => {
-                        const item = PRODUCTS[id];
-                        return (
-                          <article
-                            className="product-slide refill-product-slide"
-                            data-product-id={id}
-                            data-selected={refillId === id ? "true" : "false"}
-                            key={`refill-${id}`}
-                          >
-                            <button
-                              className="product-slide-button"
-                              aria-label={`查看 ${item.minutes} 分钟 ${item.name} 补充装完整分析`}
-                              onClick={() => openRefillPortfolio(id)}
-                            >
-                              <img
-                                src={REFILL_PRODUCT_IMAGES[id]}
-                                alt={`檀晷 ${item.minutes} MIN ${item.name} 补充装完整包装`}
-                              />
-                            </button>
-                          </article>
-                        );
-                      })}
-                    </Carousel>
-                    <span className="carousel-swipe-hint" aria-hidden="true">SWIPE · 左右滑动</span>
-                  </section>
-
-                  <section className="specimen-selector refill-specimen-selector" aria-label="选择补充装燃香时长">
-                    {PRODUCT_ORDER.map((id) => {
-                      const item = PRODUCTS[id];
-                      const active = refillId === id;
-                      return (
-                        <button
-                          key={`refill-option-${id}`}
-                          className="specimen-option"
-                          data-active={active ? "true" : "false"}
-                          aria-pressed={active}
-                          aria-label={`选择 ${item.minutes} 分钟 ${item.name} 补充装`}
-                          onClick={() => chooseRefillProduct(id)}
-                        >
-                          <span className="selection-rule" />
-                          <strong>{item.minutes}</strong>
-                          <small>{item.name}</small>
-                          <i />
-                        </button>
-                      );
-                    })}
-                  </section>
-
-                  <button className="view-specimen refill-view-specimen" onClick={() => openRefillPortfolio(refillId)}>
-                    <span>
-                      <strong>查看 {activeRefill.minutes} MIN 补充装</strong>
-                      <small>VIEW REFILL {activeRefill.specimen.slice(-2)}</small>
-                    </span>
-                    <span className="cta-line" aria-hidden="true" />
-                    <ArrowRightIcon aria-hidden="true" />
-                  </button>
-                </section>
-              ) : null}
-
-              {filteredArchiveProducts.length > 0 ? (
-                <>
-                  {archiveCategory === "all" ? (
-                    <div className="object-archive-heading">
-                      <span>OBJECT ARCHIVE · 04—09</span>
-                      <h3>礼盒与时间器物</h3>
-                    </div>
-                  ) : null}
-
-                  <div className="product-archive-status" aria-live="polite">
-                    <span>{(activeArchiveIndex + 1).toString().padStart(2, "0")}</span>
+              <div id="catalog-products" data-testid="unified-product-browser">
+                  <div className="product-archive-status">
+                    <span>{(browsedArchiveIndex + 1).toString().padStart(2, "0")}</span>
                     <i aria-hidden="true" />
-                    <small>{filteredArchiveProducts.length.toString().padStart(2, "0")}</small>
-                    <b>{activeArchive.role}</b>
+                    <small>09</small>
+                    <b>{PRODUCT_ARCHIVE_CATEGORIES.find((category) => category.id === archiveCategory)?.english}</b>
                     <div className="archive-step-controls" aria-label="逐项切换产品">
-                      <button aria-label="上一个产品" onClick={() => stepArchive(-1)}>
+                      <button aria-label="上一个产品" disabled={browsedArchiveIndex === 0} onClick={(event) => stepArchive(-1, event.detail === 0)}>
                         <ArrowRightIcon aria-hidden="true" />
                       </button>
-                      <button aria-label="下一个产品" onClick={() => stepArchive(1)}>
+                      <button aria-label="下一个产品" disabled={browsedArchiveIndex === BROWSE_PRODUCTS.length - 1} onClick={(event) => stepArchive(1, event.detail === 0)}>
                         <ArrowRightIcon aria-hidden="true" />
                       </button>
                     </div>
@@ -913,15 +833,17 @@ export default function Prototype() {
                   <Carousel
                     className="product-archive-carousel"
                     contentClassName="product-archive-track"
-                    ariaLabel="左右滑动查看礼盒与时间器物定位分析"
-                    showScrollbar
+                    snap="center"
+                    ariaLabel="左右连续浏览全部九款产品"
                   >
-                    {filteredArchiveProducts.map((item) => (
+                    {BROWSE_PRODUCTS.map((item) => (
                       <article
                         key={item.id}
                         className="product-archive-card"
                         data-archive-id={item.id}
-                        data-active={activeArchive.id === item.id ? "true" : "false"}
+                        data-category={item.category}
+                        data-active={browsedArchive.id === item.id ? "true" : "false"}
+                        aria-label={`${item.name}${item.category === "time" ? " 补充装" : ""}`}
                       >
                         <header>
                           <span>PRODUCT {item.number}</span>
@@ -930,38 +852,51 @@ export default function Prototype() {
                         <button
                           className="archive-product-visual"
                           aria-label={`查看 ${item.name} 完整产品分析`}
-                          onClick={() => {
-                            setActiveArchiveId(item.id);
-                            setSheetMode("portfolio");
-                          }}
+                          tabIndex={browsedArchive.id === item.id ? 0 : -1}
+                          onClick={() => openPortfolio(item.id)}
                         >
-                          <img src={item.image} alt={`檀晷 ${item.name} 产品实物概念图`} />
+                          <img src={item.image} alt={`檀晷 ${item.name} 产品实物概念图`} loading="lazy" decoding="async" />
                         </button>
                         <div className="archive-product-copy">
-                          <span>{item.time}</span>
+                          <span>{item.category === "time" ? "REFILL · 时间香补充装" : item.time}</span>
                           <h3>{item.name}</h3>
                           <small>{item.english}</small>
-                          <p>{item.positioning}</p>
-                          <dl>
-                            <div><dt>核心价值</dt><dd>{item.value}</dd></div>
-                            <div><dt>适用场景</dt><dd>{item.scenes.join(" · ")}</dd></div>
-                          </dl>
+                          <p>{BROWSE_CAPTIONS[item.id]}</p>
+                          {item.category === "time" ? (
+                            <div className="catalog-time-selector" aria-label="选择补充装燃香时长">
+                              {PRODUCT_ORDER.map((id) => (
+                                <button
+                                  key={id}
+                                  aria-label={`浏览 ${id} 分钟 ${PRODUCTS[id].name} 补充装`}
+                                  aria-pressed={item.linkedTime === id}
+                                  data-active={item.linkedTime === id ? "true" : "false"}
+                                  tabIndex={browsedArchive.id === item.id ? 0 : -1}
+                                  onClick={(event) => scrollToArchive(REFILL_ARCHIVE_IDS[id], event.detail === 0)}
+                                >
+                                  <strong>{id}</strong><small>{PRODUCTS[id].name}</small>
+                                </button>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="catalog-scene-note">{item.scenes.slice(0, 2).join(" · ")}</p>
+                          )}
                         </div>
                         <button
                           className="archive-detail-action"
-                          onClick={() => {
-                            setActiveArchiveId(item.id);
-                            setSheetMode("portfolio");
-                          }}
+                          tabIndex={browsedArchive.id === item.id ? 0 : -1}
+                          aria-label={`查看 ${item.name} 产品档案`}
+                          onClick={() => openPortfolio(item.id)}
                         >
-                          查看完整分析 <ArrowRightIcon aria-hidden="true" />
+                          查看产品档案 <ArrowRightIcon aria-hidden="true" />
                         </button>
                       </article>
                     ))}
                   </Carousel>
-                  <p className="archive-swipe-note">左右滑动切换器物；点击图片或“查看完整分析”进入产品档案。</p>
-                </>
-              ) : null}
+                  <p className="archive-swipe-note">左右滑动，品类随之切换。轻触产品，展开完整档案。</p>
+                  <span className="catalog-announcement" role="status" aria-live="polite" aria-atomic="true">
+                    {browsedArchive.name}，第 {browsedArchiveIndex + 1} 件，共 9 件
+                  </span>
+              </div>
             </section>
 
             <section className="evidence-preview reveal-section" aria-labelledby="evidence-preview-title">
@@ -1036,6 +971,7 @@ export default function Prototype() {
       >
         {sheetMode === "product" ? (
           <section className="sheet-product sheet-safe-content" data-testid="product-detail">
+            <ProductImage key={selectedId} id={selectedId} className="sheet-product-image" />
             <div className="sheet-specimen-line">
               <span style={{ background: selected.color }} />
               <small>{selected.english}</small>
@@ -1127,6 +1063,13 @@ export default function Prototype() {
               <p>{activeArchive.positioning}</p>
             </div>
 
+            {activeArchive.id === "gift-30" ? (
+              <figure className="portfolio-open-box">
+                <ProductImage id="30" />
+                <figcaption>开盒示意 · 左侧线香，右侧条形香托，分区收纳。</figcaption>
+              </figure>
+            ) : null}
+
             <dl className="portfolio-facts">
               <div><dt>产品角色</dt><dd>{activeArchive.role}</dd></div>
               <div><dt>时间 / 类型</dt><dd>{activeArchive.time}</dd></div>
@@ -1181,7 +1124,9 @@ export default function Prototype() {
 
         {sheetMode === "archive" ? (
           <section className="sheet-archive sheet-safe-content" data-testid="archive-sheet">
-            <span className="archive-number">02</span>
+            <figure className="archive-brand-signature">
+              <img src="/assets/tangui/v5/logo-lockup.svg" alt="檀晷 TÁN GUǏ · 斜影 R3 完整品牌标志" width="120" height="190" />
+            </figure>
             <p className="sheet-lead">檀晷把品牌叙事与产品证据放在同一份档案里。当前为概念验证阶段；只有完成实体样品与检测后，目标时长才能升级为正式参数。</p>
             <div><span>01</span><strong>晨白 · 15 MIN</strong><small>清晨与开始</small></div>
             <div><span>02</span><strong>晷墨 · 30 MIN</strong><small>静读与专注</small></div>
@@ -1199,8 +1144,8 @@ export default function Prototype() {
             </section>
             <div className="archive-meaning">
               <span>LOGO NOTE</span>
-              <h3>刻度、日影与正在燃烧的香</h3>
-              <p>圆形刻度取意日晷，指针同时像一支正在燃烧的线香。余烬红的小点，是时间正在发生的标记。</p>
+              <h3>斜影为记，以香读时</h3>
+              <p>斜向四十五度的椭圆取意晷面，左侧留出开口；细直香针止于中心，与轮廓的交点连续相接。线性图形、中文字标与英文沿用已确认的组合比例，让识别回到清晰而克制的秩序。</p>
             </div>
           </section>
         ) : null}

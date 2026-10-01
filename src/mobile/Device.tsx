@@ -1,4 +1,4 @@
-import { createContext, type PropsWithChildren, useContext, useMemo, useState } from "react";
+import { createContext, type PropsWithChildren, useCallback, useContext, useMemo, useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { mobileAssets } from "./assets";
@@ -45,16 +45,29 @@ export const mobileDevices: Record<MobileDeviceId, MobileDevicePreset> = {
 type MobileDeviceContextValue = {
   device: MobileDevicePreset;
   deviceId: MobileDeviceId;
+  availableDevices: MobileDevicePreset[];
   setDeviceId: (deviceId: MobileDeviceId) => void;
 };
 
 const MobileDeviceContext = createContext<MobileDeviceContextValue | null>(null);
 
-export function MobileDeviceProvider({ children }: PropsWithChildren) {
-  const [deviceId, setDeviceId] = useState<MobileDeviceId>("iphone");
+const defaultDeviceIds: readonly MobileDeviceId[] = ["iphone", "pixel-10"];
+
+export function MobileDeviceProvider({ children, allowedDevices = defaultDeviceIds }: PropsWithChildren<{
+  allowedDevices?: readonly MobileDeviceId[];
+}>) {
+  const availableDevices = useMemo(() => {
+    const unique = [...new Set(allowedDevices)];
+    return (unique.length > 0 ? unique : ["iphone" as const]).map((id) => mobileDevices[id]);
+  }, [allowedDevices]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState<MobileDeviceId>(availableDevices[0].id);
+  const deviceId = availableDevices.some((item) => item.id === selectedDeviceId) ? selectedDeviceId : availableDevices[0].id;
+  const setDeviceId = useCallback((next: MobileDeviceId) => {
+    if (availableDevices.some((item) => item.id === next)) setSelectedDeviceId(next);
+  }, [availableDevices]);
   const value = useMemo(
-    () => ({ device: mobileDevices[deviceId], deviceId, setDeviceId }),
-    [deviceId],
+    () => ({ device: mobileDevices[deviceId], deviceId, availableDevices, setDeviceId }),
+    [deviceId, availableDevices, setDeviceId],
   );
 
   return <MobileDeviceContext.Provider value={value}>{children}</MobileDeviceContext.Provider>;
@@ -71,7 +84,10 @@ export function useMobileDevice() {
 }
 
 export function DevicePicker() {
-  const { device, deviceId, setDeviceId } = useMobileDevice();
+  const { device, deviceId, availableDevices, setDeviceId } = useMobileDevice();
+
+  // A single-platform app is a fixed preview, not a disabled device menu.
+  if (availableDevices.length < 2) return null;
 
   return (
     <DropdownMenu.Root>
@@ -94,7 +110,7 @@ export function DevicePicker() {
             value={deviceId}
             onValueChange={(value) => setDeviceId(value as MobileDeviceId)}
           >
-            {Object.values(mobileDevices).map((option) => (
+            {availableDevices.map((option) => (
               <DropdownMenu.RadioItem
                 key={option.id}
                 className="device-picker-item"

@@ -15,6 +15,7 @@ import "./runtime-fixture.css";
 function CarouselFixture() {
   const [tapCount, setTapCount] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const snapping = new URLSearchParams(window.location.search).get("snap") === "center";
 
   return (
     <MobileRuntime>
@@ -28,6 +29,7 @@ function CarouselFixture() {
             ariaLabel="Featured cards"
             className="fixture-carousel"
             contentClassName="fixture-carousel-track"
+            snap={snapping ? "center" : undefined}
           >
             {Array.from({ length: 7 }, (_, index) => (
               <button
